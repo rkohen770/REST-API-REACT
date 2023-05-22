@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { Link, NavLink, Route, Routes } from "react-router-dom";
+import { Todos } from "./Todos";
+import { NotFound } from "./NotFound";
+import "./Login.css";
 
 class Login extends Component {
   constructor(props) {
@@ -7,6 +11,7 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      name: "",
       isLogin: false,
     };
   }
@@ -31,9 +36,8 @@ class Login extends Component {
         isLogin: true,
       });
 
-        //if the username and password are correct then set it to local storage
-        localStorage.setItem("username", JSON.stringify(this.state.username));
-
+      //if the username and password are correct then set it to local storage
+      localStorage.setItem("username", JSON.stringify(this.state.username));
     } else {
       //fetch users data from json placeholder api that the username is equal to the username in the database
       //and the password is equal the last 4 digits for 'lat' property in the address object
@@ -49,6 +53,7 @@ class Login extends Component {
             this.setState({
               isLogin: true,
             });
+            this.setState({ name: user[0].name });
 
             localStorage.setItem("username", JSON.stringify(user));
           }
@@ -62,9 +67,45 @@ class Login extends Component {
   render() {
     if (this.state.isLogin) {
       return (
-        <div>
-          <h1>Welcome {this.state.username}</h1>
-        </div>
+        <>
+          <navbar className={"navbar"}>
+            <NavLink
+              className={"NavLink"}
+              to={`/${this.state.username}/Home`}
+              replace
+            >
+              Home
+            </NavLink>
+            <NavLink className={"NavLink"} to={`/${this.state.username}/todos`}>
+              Todos
+            </NavLink>
+            <NavLink className={"NavLink"} to={`/${this.state.username}/posts`}>
+              Posts
+            </NavLink>
+            <NavLink
+              className={"NavLink"}
+              to={`/${this.state.username}/albums`}
+            >
+              Albums
+            </NavLink>
+          </navbar>
+          <div>
+            <h1>Welcome {this.state.username}</h1>
+          </div>
+          <Routes>
+            <Route path={`/${this.state.username}/Home`} />
+            <Route
+              path={`/${this.state.username}/todos`}
+              element={<Todos name={`${this.state.name}`} />}
+            />
+            <Route path={`/${this.state.username}/posts`} />
+            <Route path={`/${this.state.username}/albums`} />
+            <Route
+              path="*"
+              element={<NotFound name={`${this.state.name}`} />}
+            />
+          </Routes>
+        </>
       );
     } else {
       return (

@@ -1,0 +1,11 @@
+.active {
+    color: red;
+}
+.navbar{
+    margin-bottom: 450px;
+    display: inline-block;
+    position: fixed;
+}
+.NavLink {
+    margin-left: 15px;
+}

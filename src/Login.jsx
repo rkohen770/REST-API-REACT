@@ -12,6 +12,7 @@ class Login extends Component {
       username: "",
       password: "",
       name: "",
+      userId: 0,
       isLogin: false,
     };
   }
@@ -54,6 +55,7 @@ class Login extends Component {
               isLogin: true,
             });
             this.setState({ name: user[0].name });
+            this.setState({ userId: user[0].id });
 
             localStorage.setItem("username", JSON.stringify(user));
           }
@@ -96,7 +98,12 @@ class Login extends Component {
             <Route path={`/${this.state.username}/Home`} />
             <Route
               path={`/${this.state.username}/todos`}
-              element={<Todos name={`${this.state.name}`} />}
+              element={
+                <Todos
+                  name={`${this.state.name}`}
+                  id={`${this.state.userId}`}
+                />
+              }
             />
             <Route path={`/${this.state.username}/posts`} />
             <Route path={`/${this.state.username}/albums`} />

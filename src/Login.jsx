@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
-import { Link, NavLink, Route, Routes } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { Todos } from "./Todos";
 import { NotFound } from "./NotFound";
 import "./Login.css";
@@ -12,6 +12,7 @@ function Login() {
   const [name, setName] = useState('');
   const [userId, setUserId] = useState(0);
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -19,6 +20,16 @@ function Login() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('username');
+    setIsLogin(false);
+    setUsername('');
+    setPassword('');
+    setName('');
+    setUserId(0);
+    navigate('/login');
   };
 
   const handleSubmit = async (e) => {
@@ -48,10 +59,15 @@ function Login() {
     }
   };
 
+
+
   if (isLogin) {
     return (
       <>
         <navbar className={'navbar'}>
+          <NavLink className={'NavLink'} onClick={handleLogout}>
+            Logout
+          </NavLink>
           <NavLink className={'NavLink'} to={`/${username}/Home`} replace>
             Home
           </NavLink>
@@ -64,11 +80,15 @@ function Login() {
           <NavLink className={'NavLink'} to={`/${username}/albums`}>
             Albums
           </NavLink>
+          <NavLink className={'NavLink'} to={`/${username}/info`}>
+            Info
+          </NavLink>
         </navbar>
         <div>
           <h1>Welcome {username}</h1>
         </div>
         <Routes>
+          <Route path={`login`} />
           <Route path={`/${username}/Home`} />
           <Route
             path={`/${username}/todos`}
@@ -76,6 +96,7 @@ function Login() {
           />
           <Route path={`/${username}/posts`} />
           <Route path={`/${username}/albums`} />
+          <Route path={`/${username}/info`}/>
           <Route path='*' element={<NotFound name={`${name}`} />} />
         </Routes>
       </>

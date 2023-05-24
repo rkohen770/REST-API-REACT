@@ -17,6 +17,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         { loginFlag && (<Login />)} 
+        {/* <Routes>
+          <Route path="/login" component={Login} />
+        </Routes> */}
       </header>
      {/*  <Routes>
         <Route path="*" onChanged={movingToNFPage()} element={<NotFound />} />

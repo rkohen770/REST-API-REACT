@@ -70,7 +70,7 @@ class Login extends Component {
     if (this.state.isLogin) {
       return (
         <>
-          <navbar className={"navbar"}>
+          <nav className={"navbar"}>
             <NavLink
               className={"NavLink"}
               to={`/${this.state.username}/Home`}
@@ -90,7 +90,7 @@ class Login extends Component {
             >
               Albums
             </NavLink>
-          </navbar>
+          </nav>
           <div>
             <h1>Welcome {this.state.username}</h1>
           </div>

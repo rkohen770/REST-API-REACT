@@ -1,140 +1,120 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
-import { Link, NavLink, Route, Routes } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { Todos } from "./Todos";
 import { NotFound } from "./NotFound";
 import "./Login.css";
+import { async } from "q";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-      name: "",
-      userId: 0,
-      isLogin: false,
-    };
-  }
+function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [userId, setUserId] = useState(0);
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
-  handleUsernameChange = (e) => {
-    this.setState({
-      username: e.target.value,
-    });
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
-  handlePasswordChange = (e) => {
-    this.setState({
-      password: e.target.value,
-    });
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
-  handleSubmit = (e) => {
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    setIsLogin(false);
+    setUsername("");
+    setPassword("");
+    setName("");
+    setUserId(0);
+    navigate("/login");
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (this.state.username === "admin" && this.state.password === "admin") {
-      this.setState({
-        isLogin: true,
-      });
-
-      //if the username and password are correct then set it to local storage
-      localStorage.setItem("username", JSON.stringify(this.state.username));
+    if (username === "admin" && password === "admin") {
+      setIsLogin(true);
+      localStorage.setItem("username", JSON.stringify(username));
     } else {
-      //fetch users data from json placeholder api that the username is equal to the username in the database
-      //and the password is equal the last 4 digits for 'lat' property in the address object
-      //if the user is found then set the state of isLogin to true
-      // and save the user data in local storage
-      fetch(
-        "https://jsonplaceholder.typicode.com/users?username=" +
-          this.state.username
-      )
-        .then((response) => response.json())
-        .then((user) => {
-          if (user[0].address.geo.lat.slice(-4) === this.state.password) {
-            this.setState({
-              isLogin: true,
-            });
-            this.setState({ name: user[0].name });
-            this.setState({ userId: user[0].id });
+      try {
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/users?username=${username}`
+        );
+        const users = await response.json();
 
-            localStorage.setItem("username", JSON.stringify(user));
-          }
-        })
-        .catch((error) => {
+        if (users[0].address.geo.lat.slice(-4) === password) {
+          setIsLogin(true);
+          setName(users[0].name);
+          setUserId(users[0].id);
+          localStorage.setItem("username", JSON.stringify(users));
+        } else {
           alert("Username or password is incorrect");
-        });
+        }
+      } catch (error) {
+        alert("An error occurred while fetching user data");
+      }
     }
   };
 
-  render() {
-    if (this.state.isLogin) {
-      return (
-        <>
-          <nav className={"navbar"}>
-            <NavLink
-              className={"NavLink"}
-              to={`/${this.state.username}/Home`}
-              replace
-            >
-              Home
-            </NavLink>
-            <NavLink className={"NavLink"} to={`/${this.state.username}/todos`}>
-              Todos
-            </NavLink>
-            <NavLink className={"NavLink"} to={`/${this.state.username}/posts`}>
-              Posts
-            </NavLink>
-            <NavLink
-              className={"NavLink"}
-              to={`/${this.state.username}/albums`}
-            >
-              Albums
-            </NavLink>
-          </nav>
-          <div>
-            <h1>Welcome {this.state.username}</h1>
-          </div>
-          <Routes>
-            <Route path={`/${this.state.username}/Home`} />
-            <Route
-              path={`/${this.state.username}/todos`}
-              element={
-                <Todos
-                  name={`${this.state.name}`}
-                  id={`${this.state.userId}`}
-                />
-              }
-            />
-            <Route path={`/${this.state.username}/posts`} />
-            <Route path={`/${this.state.username}/albums`} />
-            <Route
-              path="*"
-              element={<NotFound name={`${this.state.name}`} />}
-            />
-          </Routes>
-        </>
-      );
-    } else {
-      return (
+  if (isLogin) {
+    return (
+      <>
+        <navbar className={"navbar"}>
+          <NavLink className={"NavLink"} onClick={handleLogout}>
+            Logout
+          </NavLink>
+          <NavLink className={"NavLink"} to={`/${username}/Home`} replace>
+            Home
+          </NavLink>
+          <NavLink className={"NavLink"} to={`/${username}/todos`}>
+            Todos
+          </NavLink>
+          <NavLink className={"NavLink"} to={`/${username}/posts`}>
+            Posts
+          </NavLink>
+          <NavLink className={"NavLink"} to={`/${username}/albums`}>
+            Albums
+          </NavLink>
+          <NavLink className={"NavLink"} to={`/${username}/info`}>
+            Info
+          </NavLink>
+        </navbar>
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <label>Username</label>
-            <input
-              type="text"
-              value={this.state.username}
-              onChange={this.handleUsernameChange}
-            />
-            <label>Password</label>
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={this.handlePasswordChange}
-            />
-            <button type="submit">Login</button>
-          </form>
+          <h1>Welcome {username}</h1>
         </div>
-      );
-    }
+        <Routes>
+          <Route path={`login`} />
+          <Route path={`/${username}/Home`} />
+          <Route
+            path={`/${username}/todos`}
+            element={<Todos name={`${name}`} id={`${userId}`} />}
+          />
+          <Route path={`/${username}/posts`} />
+          <Route path={`/${username}/albums`} />
+          <Route path={`/${username}/info`} />
+          <Route path="*" element={<NotFound name={`${name}`} />} />
+        </Routes>
+      </>
+    );
+  } else {
+    return (
+      <div>
+        <form onSubmit={handleSubmit}>
+          <label>Username</label>
+          <input type="text" value={username} onChange={handleUsernameChange} />
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    );
   }
 }
 

@@ -19,7 +19,6 @@ export function Todos({ name, id }) {
         // Process the received data
         console.log(data);
         setUserTodos(data);
-        //setUserTodos((prev) => [...prev, data]);
         // renderResponse();
       } catch (error) {
         // Handle any errors

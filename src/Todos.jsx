@@ -22,6 +22,7 @@ export function Todos({ name, id }) {
         // Process the received data
         console.log(data);
         setUserTodos(data);
+        // renderResponse();
       } catch (error) {
         // Handle any errors
         console.error("Error:", error);

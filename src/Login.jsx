@@ -4,6 +4,7 @@ import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { Todos } from "./Todos";
 import { NotFound } from "./NotFound";
 import "./Login.css";
+import Info from "./Info";
 import { async } from "q";
 
 function Login() {
@@ -44,8 +45,10 @@ function Login() {
           `https://jsonplaceholder.typicode.com/users?username=${username}`
         );
         const users = await response.json();
-
-        if (users[0].address.geo.lat.slice(-4) === password) {
+        if (
+          users.length > 0 &&
+          users[0].address.geo.lat.slice(-4) === password
+        ) {
           setIsLogin(true);
           setName(users[0].name);
           setUserId(users[0].id);
@@ -54,7 +57,7 @@ function Login() {
           alert("Username or password is incorrect");
         }
       } catch (error) {
-        alert("An error occurred while fetching user data");
+        alert("An error occurred while fetching user data. Please try again.");
       }
     }
   };
@@ -63,7 +66,7 @@ function Login() {
     return (
       <>
         <navbar className={"navbar"}>
-          <NavLink className={"NavLink"} to={"/login"} onClick={handleLogout}>
+          <NavLink className={"NavLink"} to="#" onClick={handleLogout}>
             Logout
           </NavLink>
           <NavLink className={"NavLink"} to={`/${username}/Home`}>
@@ -94,25 +97,39 @@ function Login() {
           />
           <Route path={`/${username}/posts`} />
           <Route path={`/${username}/albums`} />
-          <Route path={`/${username}/info`} />
+          <Route
+            path={`/${username}/info`}
+            element={<Info username={username} />}
+          />
           {/*   <Route path="*" element={<NotFound name={`${name}`} />} /> */}
         </Routes>
       </>
     );
   } else {
     return (
-      <div>
+      <div className="container">
         <form onSubmit={handleSubmit}>
-          <label>Username</label>
-          <input type="text" value={username} onChange={handleUsernameChange} />
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
+          <div className="form-group">
+            <label>Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
           <button type="submit">Login</button>
         </form>
+        <Link to="#" className="button-link" onClick={handleLogout}>
+          Logout
+        </Link>
       </div>
     );
   }

@@ -19,8 +19,6 @@ export function Todos({ name, id }) {
         // Process the received data
         console.log(data);
         setUserTodos(data);
-        //setUserTodos((prev) => [...prev, data]);
-        // renderResponse();
       } catch (error) {
         // Handle any errors
         console.error("Error:", error);
@@ -29,24 +27,9 @@ export function Todos({ name, id }) {
     fetchData();
   }, []);
 
-  /*   const renderResponse = () => {
-    return (
-      <ol className="todos_list_user">
-        {userTodos.map((todo, i) => (
-          <li className="" key={todo[i].id}>
-            {todo[i].title}
-            <input type="checkbox" checked={todo[i].comleted} />
-            {console.log(todo[i].title)}
-          </li>
-        ))}
-      </ol>
-    );
-  }; */
-
   return (
     <>
       <h1>{`${name}`}`s Todos List:</h1>
-      {/* {renderResponse} */}
       {userTodos.length > 0 ? (
         <ol className="todos_list_user">
           {userTodos.map((todo, i) => (

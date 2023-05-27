@@ -63,13 +63,13 @@ function Login() {
     return (
       <>
         <navbar className={"navbar"}>
-          <NavLink className={"NavLink"} onClick={handleLogout}>
+          <NavLink className={"NavLink"} to={"/login"} onClick={handleLogout}>
             Logout
           </NavLink>
-          <NavLink className={"NavLink"} to={`/${username}/Home`} replace>
+          <NavLink className={"NavLink"} to={`/${username}/Home`}>
             Home
           </NavLink>
-          <NavLink className={"NavLink"} to={`/${username}/todos`}>
+          <NavLink className={"NavLink"} to={`/${username}/todos`} replace>
             Todos
           </NavLink>
           <NavLink className={"NavLink"} to={`/${username}/posts`}>
@@ -95,7 +95,7 @@ function Login() {
           <Route path={`/${username}/posts`} />
           <Route path={`/${username}/albums`} />
           <Route path={`/${username}/info`} />
-          <Route path="*" element={<NotFound name={`${name}`} />} />
+          {/*   <Route path="*" element={<NotFound name={`${name}`} />} /> */}
         </Routes>
       </>
     );

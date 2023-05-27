@@ -1,0 +1,91 @@
+body {
+    background-color: #faf3e1;
+  }
+.todos_container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .todos_header {
+    font-size: 36px;
+    margin-bottom: 55px;
+    color:  #ff8c00;
+  }
+  
+  .sorting_section {
+    margin-bottom: 35px;
+  }
+  
+  .sorting_section label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #555;
+  }
+  
+  .sorting_section select {
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #eaeaea;
+    color: #333;
+  }
+  
+  .sorting_section select:hover {
+    background-color: #d4d4d4;
+  }
+  
+  .sorting_section select option {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .sorting_section select option:hover {
+    background-color: #e0e0e0;
+  }
+  
+  
+  .todos_list_user {
+    padding: 0;
+  }
+  
+  .todos_list_user li {
+    counter-increment: item;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .todos_list_user li input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .todos_list_user li.completed {
+    background-color: #c7f5c7;
+  }
+  
+  .todos_list_user li:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .todos_list_user li::before {
+    content: counter(item) ".";
+    font-weight: bold;
+    margin-right: 10px;
+    color: #fff;
+    background-color: #fcaa47;
+    padding: 6px;
+    border-radius: 50%;
+  }
+  
+  .checkBox{
+    margin: 8px 0px 0px 15px;
+  }
+
+  .loading_message {
+    font-style: italic;
+  }
+  

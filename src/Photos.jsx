@@ -29,7 +29,7 @@ function Photos() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2 className="title">User Photos</h2>
       {Array.isArray(userPhotos) && userPhotos.length > 0 ? (
         <div className="photos-container">

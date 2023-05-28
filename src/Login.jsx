@@ -7,6 +7,8 @@ import { NotFound } from "./NotFound";
 import "./Login.css";
 import Info from "./Info";
 import { async } from "q";
+import Albums from "./Albums";
+import Photos from "./Photos";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -31,7 +33,7 @@ function Login() {
     setPassword("");
     setName("");
     setUserId(0);
-    navigate("/login");
+    navigate("./login");
   };
 
   const handleSubmit = async (e) => {
@@ -67,11 +69,9 @@ function Login() {
     return (
       <>
         <navbar className={"navbar"}>
+          <NavLink className={"NavLink welcome"} >Welcome {username}!</NavLink>
           <NavLink className={"NavLink"} to="#" onClick={handleLogout}>
             Logout
-          </NavLink>
-          <NavLink className={"NavLink"} to={`/${username}/Home`}>
-            Home
           </NavLink>
           <NavLink className={"NavLink"} to={`/${username}/todos`} replace>
             Todos
@@ -86,12 +86,9 @@ function Login() {
             Info
           </NavLink>
         </navbar>
-        <div>
-          <h1>Welcome {username}</h1>
-        </div>
+
         <Routes>
-          <Route path={`login`} />
-          <Route path={`/${username}/Home`} />
+          <Route path={`./login`} />
           <Route
             path={`/${username}/todos`}
             element={<Todos name={`${name}`} id={`${userId}`} />}
@@ -100,7 +97,11 @@ function Login() {
             path={`/${username}/posts`}
             element={<Posts name={`${name}`} id={`${userId}`} />}
           />
-          <Route path={`/${username}/albums`} />
+          <Route
+            path={`/${username}/albums`}
+            element={<Albums name={`${name}`} id={`${userId}`} />}
+          />
+          <Route path="/albums/:albumId/photos" element={<Photos />} />
           <Route
             path={`/${username}/info`}
             element={<Info username={username} />}

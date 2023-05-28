@@ -9,6 +9,7 @@ export function Posts({ name, id }) {
   const [userPostsComments, setUserPostsComments] = useState([]);
   const [commentsFlag, setCommentsFlag] = useState(false);
   const [selectedPostFlag, setSelectedPostFlag] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,10 +123,19 @@ export function Posts({ name, id }) {
               {commentsFlag && userPostsComments.length > 0 && (
                 <ul className="comments_list_user">
                   {userPostsComments.slice(0, 10).map((comment) => (
-                    <li className="" key={comment.id}>
-                      name: {comment.name} <br />
-                      email: {comment.email} <br />
-                      body: {comment.body}
+                    <li className="comment" key={comment.id}>
+                      <a style={{ textDecorationLine: "underline" }}> body:</a>{" "}
+                      {comment.body} <br />
+                      <a style={{ textDecorationLine: "underline" }}>
+                        {" "}
+                        name:
+                      </a>{" "}
+                      {comment.name} <br />
+                      <a style={{ textDecorationLine: "underline" }}>
+                        {" "}
+                        email:
+                      </a>{" "}
+                      {comment.email}
                     </li>
                   ))}
                 </ul>

@@ -8,6 +8,7 @@ export function Posts({ name, id }) {
   const [selectedPost, setSelectedPost] = useState(null);
   const [userPostsComments, setUserPostsComments] = useState([]);
   const [commentsFlag, setCommentsFlag] = useState(false);
+  const [selectedPostFlag, setSelectedPostFlag] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +56,33 @@ export function Posts({ name, id }) {
 
   const handlePostSelection = (postId) => {
     setSelectedPost(postId);
+    setSelectedPostFlag(!selectedPostFlag);
+  };
+
+  const getPostTitleStyle = (postId) => {
+    if (selectedPost === postId && selectedPostFlag) {
+      return {
+        fontWeight: "bold",
+        color: "red",
+      };
+    } // selectedPostFlag  is false
+    return {
+      fontWeight: "normal",
+      color: "black",
+    };
+  };
+
+  const getPostBodyStyle = (postId) => {
+    if (selectedPost === postId && selectedPostFlag) {
+      return {
+        fontWeight: "bold",
+        color: "blue",
+      };
+    } // selectedPostFlag  is false
+    return {
+      fontWeight: "normal",
+      color: "black",
+    };
   };
 
   return (
@@ -66,9 +94,25 @@ export function Posts({ name, id }) {
         <div className="posts_list_user">
           {userPosts.map((post) => (
             <span className="posts" key={post.id}>
-              <h4>{post.title}</h4>
-              {post.body}
-              <br></br>
+              <div className="titleAndBodyPost">
+                <h4 style={getPostTitleStyle(post.id)}>
+                  {" "}
+                  <a style={{ textDecorationLine: "underline" }}> Title:</a>
+                  <a> </a>
+                  {post.title}
+                </h4>
+                <p style={getPostBodyStyle(post.id)}>
+                  <a style={{ textDecorationLine: "underline" }}> Body:</a>
+                  <a> </a>
+                  {post.body}
+                </p>
+              </div>
+              <button
+                className="selectButton"
+                onClick={() => handlePostSelection(post.id)}
+              >
+                Select
+              </button>
               <button
                 className="commentsButton"
                 onClick={() => requestComments(post.id)}
@@ -79,19 +123,13 @@ export function Posts({ name, id }) {
                 <ul className="comments_list_user">
                   {userPostsComments.slice(0, 10).map((comment) => (
                     <li className="" key={comment.id}>
-                      name: {comment.name} <br></br>
-                      email: {comment.email} <br></br>
+                      name: {comment.name} <br />
+                      email: {comment.email} <br />
                       body: {comment.body}
                     </li>
                   ))}
                 </ul>
               )}
-              <button
-                className="selectButton"
-                onClick={() => handlePostSelection(post.id)}
-              >
-                Select
-              </button>
             </span>
           ))}
         </div>

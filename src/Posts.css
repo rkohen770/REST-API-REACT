@@ -6,15 +6,15 @@
 
   .posts_container {
     width: 100%;
-    padding: 20px;
+    padding: 25px;
     box-sizing: border-box;
+    color: #0a417b
   }
  
   .posts_header {
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #0a417b;
   }
   .posts_list_user {
     margin-top: 20px;
@@ -22,7 +22,7 @@
   
   .posts_list_user span {
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     font-size: 18px;
 
   }
@@ -32,6 +32,17 @@
     font-weight: bold;
     margin-bottom: 10px;
   }
+
+  .titleAndBodyPost {
+    margin-bottom: 10px;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+  }
+
   
   .posts_list_user button.commentsButton {
     padding: 8px 16px;
@@ -52,7 +63,15 @@
     margin-bottom: 10px;
     list-style-type: none;
   }
-  
+  button.selectButton {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 15px;
+  }
   .loading_message {
     font-style: italic;
     margin-top: 20px;

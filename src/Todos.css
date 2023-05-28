@@ -57,6 +57,7 @@ body {
     padding: 10px;
     background-color: #f2f2f2;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
   }
   
   .todos_list_user li input[type="checkbox"] {
@@ -82,7 +83,7 @@ body {
   }
   
   .checkBox{
-    margin: 8px 0px 0px 15px;
+    margin: 6px 0px 0px 15px;
   }
 
   .loading_message {

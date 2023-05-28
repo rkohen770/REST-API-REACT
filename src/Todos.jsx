@@ -16,13 +16,12 @@ export function Todos({ name, id }) {
           `https://jsonplaceholder.typicode.com/users/${id}/todos`
         );
         if (!response.ok) {
-          throw new Error("Request failed");
+          throw new Error("Request failed of todos");
         }
         const data = await response.json();
         // Process the received data
         console.log(data);
         setUserTodos(data);
-        // renderResponse();
       } catch (error) {
         // Handle any errors
         console.error("Error:", error);

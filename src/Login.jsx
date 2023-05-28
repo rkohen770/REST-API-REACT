@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
 import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { Todos } from "./Todos";
+import { Posts } from "./Posts";
 import { NotFound } from "./NotFound";
 import "./Login.css";
 import Info from "./Info";
@@ -95,7 +96,10 @@ function Login() {
             path={`/${username}/todos`}
             element={<Todos name={`${name}`} id={`${userId}`} />}
           />
-          <Route path={`/${username}/posts`} />
+          <Route
+            path={`/${username}/posts`}
+            element={<Posts name={`${name}`} id={`${userId}`} />}
+          />
           <Route path={`/${username}/albums`} />
           <Route
             path={`/${username}/info`}

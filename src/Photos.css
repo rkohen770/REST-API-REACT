@@ -1,13 +1,21 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  /* set the margin to be the height of the navbar */
+  margin-top: 60px;
+  padding: 20px;
+}
+
 .photos-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 20px;
 }
 
-.photo-Wrap {
+/* .photo-Wrap {
   border: 1px solid #ccc;
   padding: 10px;
-}
+} */
 
 .photo-Wrap img {
   width: 100%;
@@ -22,7 +30,7 @@
 
 .load-more-btn {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #efc186;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -32,4 +40,8 @@
 .load-more-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.load-more-btn:hover {
+  background-color: #fcaa47;
 }

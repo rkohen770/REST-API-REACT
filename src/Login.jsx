@@ -69,6 +69,7 @@ function Login() {
     return (
       <>
         <navbar className={"navbar"}>
+          <NavLink className={"NavLink welcome"} >Welcome {username}!</NavLink>
           <NavLink className={"NavLink"} to="#" onClick={handleLogout}>
             Logout
           </NavLink>
@@ -85,9 +86,7 @@ function Login() {
             Info
           </NavLink>
         </navbar>
-        <div>
-          <h1>Welcome {username}</h1>
-        </div>
+
         <Routes>
           <Route path={`./login`} />
           <Route

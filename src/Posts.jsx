@@ -9,7 +9,6 @@ export function Posts({ name, id }) {
   const [userPostsComments, setUserPostsComments] = useState([]);
   const [commentsFlag, setCommentsFlag] = useState(false);
   const [selectedPostFlag, setSelectedPostFlag] = useState(false);
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {

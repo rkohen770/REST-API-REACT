@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { Todos } from "./Todos";
 import { Posts } from "./Posts";
-import { NotFound } from "./NotFound";
 import "./Login.css";
 import Info from "./Info";
 import { async } from "q";

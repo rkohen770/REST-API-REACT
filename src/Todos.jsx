@@ -5,7 +5,6 @@ import "./Todos.css";
 import "./Login.css";
 
 export function Todos({ name, id }) {
-  // const { id} = useParams() ;
   const [userTodos, setUserTodos] = useState([]);
   const [sortingCriteria, setSortingCriteria] = useState("serial"); // to  track of the selected sorting criterion
 

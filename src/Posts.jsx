@@ -121,7 +121,7 @@ export function Posts({ name, id }) {
               </button>
               {commentsFlag && userPostsComments.length > 0 && (
                 <ul className="comments_list_user">
-                  {userPostsComments.slice(0, 10).map((comment) => (
+                  {userPostsComments.slice(0, 15).map((comment) => (
                     <li className="comment" key={comment.id}>
                       <a style={{ textDecorationLine: "underline" }}> body:</a>{" "}
                       {comment.body} <br />

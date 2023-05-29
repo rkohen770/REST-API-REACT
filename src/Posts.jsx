@@ -34,7 +34,7 @@ export function Posts({ name, id }) {
   const requestComments = async (postId) => {
     try {
       const response = await fetch(
-        `https://jsonplaceholder.typicode.com/users/${postId}/comments`
+        `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
       );
       if (!response.ok) {
         throw new Error("Request failed of comments");

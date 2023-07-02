@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { Todos } from "./Todos";
 import { Posts } from "./Posts";
-import { NotFound } from "./NotFound";
 import "./Login.css";
 import Info from "./Info";
 import { async } from "q";
@@ -18,6 +17,8 @@ function Login() {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
 
+  let listUsers = JSON.parse(localStorage.getItem("listUsers")) || [];
+
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -27,7 +28,8 @@ function Login() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("username");
+    //localStorage.removeItem("username");
+    localStorage.removeItem("currentUser");
     setIsLogin(false);
     setUsername("");
     setPassword("");
@@ -41,7 +43,10 @@ function Login() {
 
     if (username === "admin" && password === "admin") {
       setIsLogin(true);
-      localStorage.setItem("username", JSON.stringify(username));
+      //localStorage.setItem("username", JSON.stringify(username));
+      localStorage.setItem("currentUser", JSON.stringify(username));
+      listUsers.push(username);
+      localStorage.setItem("listUsers", JSON.stringify(listUsers));
     } else {
       try {
         const response = await fetch(
@@ -55,7 +60,10 @@ function Login() {
           setIsLogin(true);
           setName(users[0].name);
           setUserId(users[0].id);
-          localStorage.setItem("username", JSON.stringify(users));
+          //localStorage.setItem("username", JSON.stringify(users));
+          localStorage.setItem("currentUser", JSON.stringify(users));
+          listUsers.push(users[0]); // to not enter as an array of object into listUsers array
+          localStorage.setItem("listUsers", JSON.stringify(listUsers));
         } else {
           alert("Username or password is incorrect");
         }
@@ -69,7 +77,7 @@ function Login() {
     return (
       <>
         <navbar className={"navbar"}>
-          <NavLink className={"NavLink welcome"} >Welcome {username}!</NavLink>
+          <NavLink className={"NavLink welcome"}>Welcome {username}!</NavLink>
           <NavLink className={"NavLink"} to="#" onClick={handleLogout}>
             Logout
           </NavLink>
